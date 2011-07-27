@@ -99,24 +99,18 @@ function html5_media_field_formatter_view($entity_type, $entity, $field, $instan
   $element = array();
   switch ($display['type']) {
     case 'html5_audio':
+      $attributes = array();
       foreach ($items as $delta => $item) {
-        $element[$delta] = array(
+        $attributes[] = array($delta, $item);
+      }
+      $element[] = array(
           '#theme' => 'html_tag',
           '#tag' => 'audio',
           '#attributes' => html5_media_get_attributes($item, $settings),
         );
-      }
+      
       break;
-
-    case 'html5_video':
-      foreach ($items as $delta => $item) {
-        $element[$delta] = array(
-          '#theme' => 'html_tag',
-          '#tag' => 'video',
-          '#attributes' => html5_media_get_attributes($item, $settings),
-        );
-      }
-      break;
-  }
+}
+    
   return $element;
 }

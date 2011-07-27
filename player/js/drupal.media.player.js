@@ -40,7 +40,7 @@
    */
   media.player.prototype = {
     getPlayer: function() {
-      alert('No media players defined!');
+      alert(t('No media players defined!'));
       return null;
     },
     loadPlayer: function() {},
