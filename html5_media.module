@@ -103,7 +103,7 @@ function html5_media_field_formatter_view($entity_type, $entity, $field, $instan
       foreach ($items as $delta => $item) {
         $attributes[] = array($delta, $item);
       }
-      $element[] = array(
+      $element[0] = array(
           '#theme' => 'html_tag',
           '#tag' => 'audio',
           '#attributes' => html5_media_get_attributes($item, $settings),
