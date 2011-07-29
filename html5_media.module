@@ -54,7 +54,13 @@ function html5_media_field_formatter_settings_form($field, $instance, $view_mode
       '#title' => t('Loop'),
       '#type' => 'checkbox',
       '#default_value' => $settings['loop']
-    );    
+    );  
+    
+    $element['combine'] = array(
+      '#title' => t('Combine'),
+      '#type' => 'checkbox',
+      '#default_value' => $settings['combine']
+    );
   }
   return $element;
 }
@@ -96,17 +102,19 @@ function html5_media_get_attributes($item, $settings) {
  */
 function html5_media_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $settings = $display['settings'];  
-  $element = array();
+  $attributes = array();
   switch ($display['type']) {
     case 'html5_audio':
       $attributes = array();
       foreach ($items as $delta => $item) {
-        $attributes[] = array($delta, $item);
+        $attributes[] = array($delta, $item['uri']);
       }
       $element[0] = array(
           '#theme' => 'html_tag',
           '#tag' => 'audio',
           '#attributes' => html5_media_get_attributes($item, $settings),
+          
+          
         );
       
       break;
