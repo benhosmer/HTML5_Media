@@ -105,20 +105,56 @@ function html5_media_field_formatter_view($entity_type, $entity, $field, $instan
   $attributes = array();
   switch ($display['type']) {
     case 'html5_audio':
-      $attributes = array();
+      $sources = array();
       foreach ($items as $delta => $item) {
-        $attributes[] = array($delta, $item['uri']);
+        //dsm($item);
+        $sources[] = file_create_url($item['uri']);
       }
-      $element[0] = array(
-          '#theme' => 'html_tag',
-          '#tag' => 'audio',
-          '#attributes' => html5_media_get_attributes($item, $settings),
-          
-          
-        );
-      
+
+       $element[0] = array(
+         '#theme' => 'audio',
+         '#tag' => 'audio',
+         '#attributes' => array('controls' => 'controls'),
+         '#sources' => $sources,
+       );
+
       break;
-}
-    
+  }
   return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function html5_media_theme ($existing, $type, $theme, $path) {
+  return array(
+    'audio' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/*
+ * Implements theme()
+ */
+function theme_audio($variables) {
+  $element = $variables['element'];
+  _form_set_class($element, array('html5-audio'));
+
+  return '<audio ' . drupal_attributes($element['#attributes']) . '>' . form_audio_options($element) . 'Your browser does not support the audio element.</audio>';
+}
+
+/**
+ * Implements form_select_options()
+ */
+function form_audio_options($element, $sources = NULL) {
+  if (!isset($sources)) {
+    $sources = $element['#sources'];
+  }
+  $options = '';
+  foreach ($sources as $key => $source) {
+    $key = (string) $key;
+    $options .= '<source src="' . check_plain($source) . '" />';
+  }
+  return $options;
 }
