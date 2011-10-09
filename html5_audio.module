@@ -2,7 +2,7 @@
 /**
  * Implements hook_field_formatter_info().
  */
-function html5_media_field_formatter_info() {
+function html5_audio_field_formatter_info() {
   return array(
     'html5_audio' => array(
       'label' => t('Audio'),
@@ -32,7 +32,7 @@ function html5_media_field_formatter_info() {
 /**
  * Implements hook_field_formatter_settings_form
  */
-function html5_media_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+function html5_audio_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $element = array();
@@ -68,7 +68,7 @@ function html5_media_field_formatter_settings_form($field, $instance, $view_mode
 /**
  * Implements hook_field_formatter_settings_summary
  */
-function html5_media_field_formatter_settings_summary($field, $instance, $view_mode) {
+function html5_audio_field_formatter_settings_summary($field, $instance, $view_mode) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $summary = '';
@@ -86,7 +86,7 @@ function html5_media_field_formatter_settings_summary($field, $instance, $view_m
 /**
  * Returns the settings for this video or audio element.
  */
-function html5_media_get_attributes($item, $settings) {
+function html5_audio_get_attributes($item, $settings) {
   $attributes = array();
   $attributes['src'] = file_create_url($item['uri']);
   foreach ($settings as $name => $value) {
@@ -100,7 +100,7 @@ function html5_media_get_attributes($item, $settings) {
 /**
  * Implements hook_field_formatter_view().
  */
-function html5_media_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+function html5_audio_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $settings = $display['settings'];  
   $attributes = array();
   switch ($display['type']) {
@@ -126,7 +126,7 @@ function html5_media_field_formatter_view($entity_type, $entity, $field, $instan
 /**
  * Implements hook_theme().
  */
-function html5_media_theme ($existing, $type, $theme, $path) {
+function html5_audio_theme ($existing, $type, $theme, $path) {
   return array(
     'audio' => array(
       'render element' => 'element',

@@ -1,0 +1,8 @@
+name = HTML5 Audio
+description = A module to add HTML5 compatible audio using native browser displays.
+package = HTML5 Audio
+core = 7.x
+files[] = html5_audio.module
+files[] = html5_audio.install
+files[] = html5_audio.field.inc
+required = FALSE
